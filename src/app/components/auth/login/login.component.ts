@@ -35,7 +35,11 @@ import { Router } from '@angular/router';
                 required 
                 class="appearance-none relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm" 
                 placeholder="tu@email.com"
+                [class.border-red-300]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
               >
+              @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+                <p class="mt-1 text-xs text-red-500">Introduce un email válido</p>
+              }
             </div>
             <div>
               <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
@@ -46,7 +50,14 @@ import { Router } from '@angular/router';
                 required 
                 class="appearance-none relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm" 
                 placeholder="••••••••"
+                [class.border-red-300]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
               >
+              @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                <p class="mt-1 text-xs text-red-500">
+                  @if (loginForm.get('password')?.errors?.['required']) { La contraseña es obligatoria }
+                  @if (loginForm.get('password')?.errors?.['minlength']) { Mínimo 6 caracteres }
+                </p>
+              }
             </div>
           </div>
 
@@ -126,8 +137,9 @@ export class LoginComponent {
         await this.authService.signUp(email!, password!);
         this.successMessage.set('Cuenta creada. Por favor, verifica tu email para confirmar.');
       }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
+    } catch (err: any) {
+      console.error('Registration/Login error:', err);
+      if (err?.message) {
         this.error.set(err.message);
       } else {
         this.error.set('Ocurrió un error inesperado');
