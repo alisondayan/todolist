@@ -10,8 +10,11 @@ import { Router } from '@angular/router';
   template: `
     <div class="min-h-screen flex items-center justify-center bg-pink-50 px-4">
       <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-pink-100">
-        <div>
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-pink-900 font-display">
+        <div class="text-center">
+          <h1 class="text-4xl font-black bg-gradient-to-r from-pink-500 to-rose-600 bg-clip-text text-transparent font-display mb-2">
+            AliTask
+          </h1>
+          <h2 class="text-center text-3xl font-extrabold text-pink-900 font-display">
             {{ isLoginMode() ? '¡Bienvenido de nuevo!' : 'Crea tu cuenta' }}
           </h2>
           <p class="mt-2 text-center text-sm text-pink-700">

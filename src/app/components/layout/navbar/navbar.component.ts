@@ -8,7 +8,7 @@ import { AuthService } from '../../../services/auth.service';
     <nav class="h-16 bg-white border-b border-pink-100 flex items-center justify-between px-6 sticky top-0 z-30">
       <div class="flex items-center gap-4">
         <h1 class="text-xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-          KanbanFlow
+          AliTask
         </h1>
       </div>
       
