@@ -22,8 +22,15 @@ export class BoardService {
       assigneeId: t.assignee_id,
       position: t.position || 0,
       createdAt: new Date(t.created_at).getTime(),
-      tags: [], // Tags and comments are fetched in TaskService or specifically requested
-      comments: [],
+      tags: t.tags || [],
+      comments: t.comments?.map((c: any) => ({
+        id: c.id,
+        taskId: c.task_id,
+        userId: c.user_id,
+        userName: c.user_name,
+        content: c.content,
+        createdAt: new Date(c.created_at).getTime(),
+      })).sort((a: any, b: any) => a.createdAt - b.createdAt) || [],
     };
   }
 
@@ -101,7 +108,7 @@ export class BoardService {
 
     const { data, error } = await this.supabase.client
       .from('tasks')
-      .select('*')
+      .select('*, tags(*), comments(*)')
       .in('column_id', columnIds)
       .order('position', { ascending: true });
 
@@ -140,6 +147,20 @@ export class BoardService {
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'columns', filter: `board_id=eq.${boardId}` },
+        (payload) => {
+          this.updatesSubject.next({ type: 'COLUMN', payload });
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'comments' },
+        (payload) => {
+          this.updatesSubject.next({ type: 'COLUMN', payload });
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'task_tags' },
         (payload) => {
           this.updatesSubject.next({ type: 'COLUMN', payload });
         }

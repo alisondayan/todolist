@@ -283,7 +283,8 @@ export class BoardComponent implements OnInit, OnDestroy {
                // If it was already here, update it. If it moved here, add it.
                const index = tasks.findIndex(t => t.id === newTask.id);
                if (index !== -1) {
-                 tasks[index] = mappedTask;
+                 // Merge with existing task to preserve tags and comments
+                 tasks[index] = { ...tasks[index], ...mappedTask };
                } else {
                  tasks.push(mappedTask);
                }
@@ -311,6 +312,8 @@ export class BoardComponent implements OnInit, OnDestroy {
       assigneeId: t.assignee_id,
       position: t.position || 0,
       createdAt: new Date(t.created_at).getTime(),
+      tags: [],
+      comments: []
     };
   }
 
