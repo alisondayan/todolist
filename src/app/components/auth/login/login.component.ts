@@ -1,6 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { NotificationService } from '../../../services/notification.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,7 +25,7 @@ import { Router } from '@angular/router';
           </div>
         }
 
-        <form class="mt-8 space-y-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form class="mt-8 space-y-6" [formGroup]="loginForm">
           <div class="rounded-md shadow-sm space-y-4">
             <div>
               <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -52,11 +53,11 @@ import { Router } from '@angular/router';
                 placeholder="••••••••"
                 [class.border-red-300]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
               >
-              @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-                <p class="mt-1 text-xs text-red-500">
-                  @if (loginForm.get('password')?.errors?.['required']) { La contraseña es obligatoria }
-                  @if (loginForm.get('password')?.errors?.['minlength']) { Mínimo 6 caracteres }
-                </p>
+              @if (loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched) {
+                <p class="mt-1 text-xs text-red-500">La contraseña es obligatoria</p>
+              }
+              @if (loginForm.get('password')?.errors?.['minlength'] && loginForm.get('password')?.touched) {
+                <p class="mt-1 text-xs text-red-500">Mínimo 6 caracteres</p>
               }
             </div>
           </div>
@@ -69,8 +70,9 @@ import { Router } from '@angular/router';
 
           <div>
             <button 
-              type="submit" 
-              [disabled]="loading() || loginForm.invalid"
+              type="button" 
+              (click)="onSubmit()"
+              [disabled]="loading()"
               class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-lg shadow-indigo-200 disabled:opacity-50 disabled:shadow-none"
             >
               @if (loading()) {
@@ -102,6 +104,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
   private router = inject(Router);
 
   isLoginMode = signal(true);
@@ -121,7 +124,20 @@ export class LoginComponent {
   }
 
   async onSubmit() {
-    if (this.loginForm.invalid) return;
+    console.log('Submit called. Mode:', this.isLoginMode() ? 'Login' : 'Register');
+    console.log('Form status:', this.loginForm.status);
+    console.log('Form values:', { ...this.loginForm.getRawValue(), password: '***' });
+    
+    if (this.loginForm.invalid) {
+      console.warn('Form is invalid. Errors:', this.loginForm.errors);
+      // Log errors of each control
+      Object.keys(this.loginForm.controls).forEach(key => {
+        const controlErrors = this.loginForm.get(key)?.errors;
+        if (controlErrors) console.warn(`Control ${key} errors:`, controlErrors);
+      });
+      this.error.set('Por favor, rellena todos los campos correctamente.');
+      return;
+    }
     
     this.loading.set(true);
     this.error.set(null);
@@ -129,23 +145,28 @@ export class LoginComponent {
     
     try {
       const { email, password } = this.loginForm.getRawValue();
+      console.log('Calling AuthService...');
       
       if (this.isLoginMode()) {
-        await this.authService.signIn(email!, password!);
+        const data = await this.authService.signIn(email!, password!);
+        console.log('Login success:', data);
+        this.notificationService.addNotification('Sesión iniciada correctamente', 'success');
         this.router.navigate(['/']);
       } else {
-        await this.authService.signUp(email!, password!);
-        this.successMessage.set('Cuenta creada. Por favor, verifica tu email para confirmar.');
+        const data = await this.authService.signUp(email!, password!);
+        console.log('Register success:', data);
+        const msg = 'Cuenta creada. Por favor, verifica tu email para confirmar.';
+        this.successMessage.set(msg);
+        this.notificationService.addNotification(msg, 'success');
       }
     } catch (err: any) {
       console.error('Registration/Login error:', err);
-      if (err?.message) {
-        this.error.set(err.message);
-      } else {
-        this.error.set('Ocurrió un error inesperado');
-      }
+      const errorMsg = err?.message || 'Ocurrió un error inesperado';
+      this.error.set(errorMsg);
+      this.notificationService.addNotification(errorMsg, 'error');
     } finally {
       this.loading.set(false);
+      console.log('Submit process finished');
     }
   }
 }

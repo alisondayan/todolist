@@ -36,20 +36,30 @@ export class AuthService {
   }
 
   async signUp(email: string, password: string) {
+    console.log('AuthService: Starting signUp for', email);
     const { data, error } = await this.supabase.auth.signUp({
       email,
       password,
     });
-    if (error) throw error;
+    if (error) {
+      console.error('AuthService: signUp error:', error);
+      throw error;
+    }
+    console.log('AuthService: signUp success:', data);
     return data;
   }
 
   async signIn(email: string, password: string) {
+    console.log('AuthService: Starting signIn for', email);
     const { data, error } = await this.supabase.auth.signInWithPassword({
       email,
       password,
     });
-    if (error) throw error;
+    if (error) {
+      console.error('AuthService: signIn error:', error);
+      throw error;
+    }
+    console.log('AuthService: signIn success:', data);
     return data;
   }
 
