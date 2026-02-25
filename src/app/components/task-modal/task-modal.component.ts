@@ -18,12 +18,12 @@ import { TaskService } from '../../services/task.service';
             type="text" 
             [(ngModel)]="task().title" 
             (blur)="updateTask({ title: task().title })"
-            class="w-full text-2xl font-bold bg-transparent border-none focus:ring-2 focus:ring-blue-500 rounded px-1 transition-all"
+            class="w-full text-2xl font-bold bg-transparent border-none focus:ring-2 focus:ring-pink-500 rounded px-1 transition-all"
             placeholder="Título de la tarea"
           />
           <p class="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Creado el {{ task().createdAt | date:'medium' }}</p>
         </div>
-        <button (click)="close()" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+        <button (click)="close()" class="p-2 hover:bg-pink-50 rounded-full transition-colors text-pink-300 hover:text-pink-500">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -44,7 +44,7 @@ import { TaskService } from '../../services/task.service';
             <textarea 
               [(ngModel)]="task().description" 
               (blur)="updateTask({ description: task().description })"
-              class="w-full h-32 p-3 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-blue-500 transition-all resize-none shadow-inner"
+              class="w-full h-32 p-3 bg-pink-50/30 border-none rounded-xl focus:ring-2 focus:ring-pink-500 transition-all resize-none shadow-inner"
               placeholder="Añade una descripción más detallada..."
             ></textarea>
           </section>
@@ -103,9 +103,9 @@ import { TaskService } from '../../services/task.service';
                     </button>
                   }
                 </div>
-                <div class="flex gap-2 border-t pt-3 dark:border-slate-700">
-                  <input #newTagName type="text" placeholder="Nueva etiqueta" class="flex-1 text-sm bg-slate-50 dark:bg-slate-900 border-none rounded-lg focus:ring-1 focus:ring-blue-500">
-                  <button (click)="createNewTag(newTagName.value); newTagName.value=''" class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors">Crear</button>
+                <div class="flex gap-2 border-t pt-3 border-pink-100">
+                  <input #newTagName type="text" placeholder="Nueva etiqueta" class="flex-1 text-sm bg-pink-50 border-none rounded-lg focus:ring-1 focus:ring-pink-500 text-pink-900 placeholder-pink-300">
+                  <button (click)="createNewTag(newTagName.value); newTagName.value=''" class="bg-pink-500 text-white px-3 py-1 rounded-lg text-sm font-semibold hover:bg-pink-600 transition-colors">Crear</button>
                 </div>
               </div>
             }
@@ -123,15 +123,15 @@ import { TaskService } from '../../services/task.service';
             <div class="space-y-4 mb-6">
               @for (comment of task().comments; track comment.id) {
                 <div class="flex gap-3">
-                  <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-xs shrink-0">
+                  <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-xs shrink-0">
                     {{ (comment.userName || 'U')[0].toUpperCase() }}
                   </div>
                   <div class="flex-1">
                     <div class="flex items-center gap-2 mb-1">
-                      <span class="text-sm font-bold dark:text-white">{{ comment.userName || 'Usuario' }}</span>
-                      <span class="text-xs text-slate-500">{{ comment.createdAt | date:'short' }}</span>
+                      <span class="text-sm font-bold text-pink-900">{{ comment.userName || 'Usuario' }}</span>
+                      <span class="text-xs text-pink-400">{{ comment.createdAt | date:'short' }}</span>
                     </div>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-800 rounded-2xl rounded-tl-none text-sm dark:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div class="p-3 bg-pink-50/50 rounded-2xl rounded-tl-none text-sm text-pink-800 shadow-sm border border-pink-100">
                       {{ comment.content }}
                     </div>
                   </div>
@@ -140,19 +140,19 @@ import { TaskService } from '../../services/task.service';
             </div>
 
             <div class="flex gap-3">
-              <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 shrink-0"></div>
+              <div class="w-8 h-8 rounded-full bg-pink-100 shrink-0"></div>
               <div class="flex-1 relative">
                 <textarea 
                   [(ngModel)]="newComment" 
                   (keydown.enter)="$event.preventDefault(); addComment()"
-                  class="w-full p-3 pr-12 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl focus:ring-2 focus:ring-blue-500 transition-all resize-none text-sm"
+                  class="w-full p-3 pr-12 bg-pink-50 border-none rounded-2xl focus:ring-2 focus:ring-pink-500 transition-all resize-none text-sm text-pink-900 placeholder-pink-300"
                   placeholder="Escribe un comentario..."
                   rows="1"
                 ></textarea>
                 <button 
                   (click)="addComment()"
                   [disabled]="!newComment.trim()"
-                  class="absolute right-2 top-1.5 p-1.5 text-blue-600 disabled:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-xl transition-all"
+                  class="absolute right-2 top-1.5 p-1.5 text-pink-600 disabled:text-pink-200 hover:bg-pink-50 rounded-xl transition-all"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-90" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -182,12 +182,12 @@ import { TaskService } from '../../services/task.service';
           </section>
 
           <section>
-            <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest">Fecha de vencimiento</label>
+            <label class="block text-xs font-bold text-pink-400 uppercase mb-2 tracking-widest">Fecha de vencimiento</label>
             <input 
               type="date" 
               [ngModel]="formatDate(task().dueDate)" 
               (ngModelChange)="onDateChange($event)"
-              class="w-full p-2.5 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-blue-500 text-sm font-medium transition-all"
+              class="w-full p-2.5 bg-pink-50 border-none rounded-xl focus:ring-2 focus:ring-pink-500 text-sm font-medium transition-all text-pink-900"
             />
           </section>
 
@@ -312,7 +312,7 @@ export class TaskModalComponent implements OnInit {
 
   async createNewTag(name: string) {
     if (!name.trim()) return;
-    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+    const colors = ['#ec4899', '#f472b6', '#fbcfe8', '#f9a8d4', '#f06292', '#d81b60'];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     const newTag = await this.taskService.createTag(name, randomColor);
     this.availableTags.update(tags => [...tags, newTag]);

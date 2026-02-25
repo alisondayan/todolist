@@ -16,7 +16,7 @@ interface NavItem {
   selector: 'app-sidebar',
   imports: [RouterLink, RouterLinkActive, FormsModule, CommonModule],
   template: `
-    <aside class="w-64 bg-slate-50 border-r border-gray-200 h-[calc(100vh-64px)] overflow-y-auto hidden md:block">
+    <aside class="w-64 bg-pink-50/50 border-r border-pink-100 h-[calc(100vh-64px)] overflow-y-auto hidden md:block">
       <div class="p-4">
         <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4 px-2">
           Navegación
@@ -25,21 +25,20 @@ interface NavItem {
           @for (item of navItems(); track item.route) {
             <a
               [routerLink]="item.route"
-              routerLinkActive="bg-white text-indigo-700 shadow-sm border-indigo-100"
-              class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 rounded-lg hover:bg-white hover:text-indigo-600 border border-transparent transition-all"
+              routerLinkActive="bg-white text-pink-600 shadow-sm border-pink-100"
+              class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-pink-800 rounded-lg hover:bg-white hover:text-pink-500 border border-transparent transition-all"
             >
               <i [class]="item.icon"></i>
               {{ item.label }}
             </a>
           }
         </nav>
-
         <div class="mt-8">
-          <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4 px-2 flex justify-between items-center">
+          <h2 class="text-xs font-semibold text-pink-700/60 uppercase tracking-wider mb-4 px-2 flex justify-between items-center">
             Mis Tableros
             <button 
               (click)="toggleNewBoardForm()"
-              class="text-gray-400 hover:text-indigo-600 transition-colors"
+              class="text-pink-300 hover:text-pink-600 transition-colors"
               title="Nuevo Tablero"
             >
               <i class="fas fa-plus-circle text-lg"></i>
@@ -53,13 +52,13 @@ interface NavItem {
                 [(ngModel)]="newBoardName"
                 (keyup.enter)="createBoard()"
                 placeholder="Nombre del tablero..."
-                class="w-full px-3 py-2 text-sm border border-indigo-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                class="w-full px-3 py-2 text-sm border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-500 outline-none"
                 #boardInput
               />
               <div class="flex gap-2 mt-2">
                 <button 
                   (click)="createBoard()"
-                  class="flex-1 bg-indigo-600 text-white text-xs py-1.5 rounded hover:bg-indigo-700 transition-colors"
+                  class="flex-1 bg-pink-500 text-white text-xs py-1.5 rounded hover:bg-pink-600 transition-colors"
                 >
                   Confirmar
                 </button>
@@ -75,12 +74,12 @@ interface NavItem {
 
           <div class="space-y-1">
             @for (board of boards(); track board.id) {
-              <a 
+              <a
                 [routerLink]="['/board', board.id]"
-                routerLinkActive="bg-white text-indigo-700 shadow-sm border-indigo-100"
-                class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-white hover:text-indigo-600 transition-all border border-transparent group"
+                routerLinkActive="bg-white text-pink-600 shadow-sm border-pink-100"
+                class="flex items-center gap-3 px-3 py-2 text-sm text-pink-800 rounded-lg hover:bg-white hover:text-pink-500 transition-all border border-transparent group"
               >
-                <span class="w-2 h-2 rounded-full bg-indigo-400 group-hover:scale-125 transition-transform"></span>
+                <span class="w-2 h-2 rounded-full bg-pink-400 group-hover:scale-125 transition-transform"></span>
                 <span class="truncate">{{ board.name }}</span>
               </a>
             } @empty {

@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   imports: [ReactiveFormsModule],
   template: `
-    <div class="min-h-screen flex items-center justify-center bg-slate-50 px-4">
-      <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+    <div class="min-h-screen flex items-center justify-center bg-pink-50 px-4">
+      <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-pink-100">
         <div>
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 font-display">
+          <h2 class="mt-6 text-center text-3xl font-extrabold text-pink-900 font-display">
             {{ isLoginMode() ? '¡Bienvenido de nuevo!' : 'Crea tu cuenta' }}
           </h2>
-          <p class="mt-2 text-center text-sm text-gray-600">
+          <p class="mt-2 text-center text-sm text-pink-700">
             {{ isLoginMode() ? 'Inicia sesión para gestionar tus tableros' : 'Empieza a organizar tus tareas de forma profesional' }}
           </p>
         </div>
@@ -28,13 +28,13 @@ import { Router } from '@angular/router';
         <form class="mt-8 space-y-6" [formGroup]="loginForm">
           <div class="rounded-md shadow-sm space-y-4">
             <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label for="email" class="block text-sm font-medium text-pink-800 mb-1">Email</label>
               <input 
                 id="email" 
                 type="email" 
                 formControlName="email"
                 required 
-                class="appearance-none relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm" 
+                class="appearance-none relative block w-full px-4 py-3 border border-pink-200 placeholder-pink-300 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-400 transition-all text-sm" 
                 placeholder="tu@email.com"
                 [class.border-red-300]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
               >
@@ -43,13 +43,13 @@ import { Router } from '@angular/router';
               }
             </div>
             <div>
-              <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+              <label for="password" class="block text-sm font-medium text-pink-800 mb-1">Contraseña</label>
               <input 
                 id="password" 
                 type="password" 
                 formControlName="password"
                 required 
-                class="appearance-none relative block w-full px-4 py-3 border border-gray-200 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm" 
+                class="appearance-none relative block w-full px-4 py-3 border border-pink-200 placeholder-pink-300 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500/20 focus:border-pink-400 transition-all text-sm" 
                 placeholder="••••••••"
                 [class.border-red-300]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
               >
@@ -73,7 +73,7 @@ import { Router } from '@angular/router';
               type="button" 
               (click)="onSubmit()"
               [disabled]="loading()"
-              class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all shadow-lg shadow-indigo-200 disabled:opacity-50 disabled:shadow-none"
+              class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-400 transition-all shadow-lg shadow-pink-200 disabled:opacity-50 disabled:shadow-none"
             >
               @if (loading()) {
                 <span class="flex items-center gap-2">
@@ -90,7 +90,7 @@ import { Router } from '@angular/router';
             <button 
               type="button"
               (click)="toggleMode()"
-              class="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+              class="text-sm font-medium text-pink-600 hover:text-pink-500 transition-colors"
             >
               {{ isLoginMode() ? '¿No tienes cuenta? Regístrate gratis' : '¿Ya tienes cuenta? Inicia sesión' }}
             </button>

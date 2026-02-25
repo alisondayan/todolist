@@ -4,6 +4,12 @@
 :root {
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Outfit', sans-serif;
+  --pastel-pink-50: #fff5f7;
+  --pastel-pink-100: #fce4ec;
+  --pastel-pink-200: #f8bbd0;
+  --pastel-pink-300: #f48fb1;
+  --pastel-pink-400: #f06292;
+  --pastel-pink-500: #ec407a;
 }
 
 body {
@@ -11,6 +17,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--pastel-pink-50);
 }
 
 button, input {

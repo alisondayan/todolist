@@ -11,13 +11,13 @@ import { NotificationService } from '../../services/notification.service';
       @for (notification of notificationService.notifications(); track notification.id) {
         <div 
           class="pointer-events-auto transform transition-all duration-300 ease-in-out px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 min-w-[300px] max-w-sm animate-slide-in"
-          [class.bg-blue-500]="notification.type === 'info'"
+          [class.bg-pink-500]="notification.type === 'info'"
           [class.text-white]="notification.type === 'info'"
           [class.bg-yellow-500]="notification.type === 'warning'"
           [class.text-white]="notification.type === 'warning'"
           [class.bg-red-500]="notification.type === 'error'"
           [class.text-white]="notification.type === 'error'"
-          [class.bg-green-500]="notification.type === 'success'"
+          [class.bg-rose-500]="notification.type === 'success'"
           [class.text-white]="notification.type === 'success'"
         >
           <!-- Icon based on type -->

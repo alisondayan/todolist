@@ -25,28 +25,28 @@ import {
     <div class="flex flex-col h-[calc(100vh-12rem)] transition-colors duration-300">
       @if (loading()) {
         <div class="flex items-center justify-center flex-1">
-          <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+          <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
         </div>
       } @else if (board()) {
         <header class="flex justify-between items-center mb-8">
           <div>
-            <h1 class="text-3xl font-bold text-slate-800 dark:text-white">{{ board()?.name }}</h1>
-            <p class="text-slate-500 dark:text-slate-400">Manage your project workflow</p>
+            <h1 class="text-3xl font-bold text-pink-900">{{ board()?.name }}</h1>
+            <p class="text-pink-600/70">Gestiona el flujo de tu proyecto</p>
           </div>
           <button 
             (click)="toggleAddColumn()"
-            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-200 flex items-center gap-2 shadow-lg shadow-blue-500/30"
+            class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-all duration-200 flex items-center gap-2 shadow-lg shadow-pink-200"
           >
-            <span class="text-xl">+</span> Add Column
+            <span class="text-xl">+</span> Añadir Columna
           </button>
         </header>
 
-        <div class="flex gap-6 overflow-x-auto pb-4 flex-1 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700" cdkDropListGroup>
+        <div class="flex gap-6 overflow-x-auto pb-4 flex-1 scrollbar-thin scrollbar-thumb-pink-200" cdkDropListGroup>
           @for (column of columns(); track column.id) {
-            <div class="shrink-0 w-80 bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 flex flex-col max-h-full border border-slate-200 dark:border-slate-700">
+            <div class="shrink-0 w-80 bg-pink-50/50 backdrop-blur-sm rounded-xl p-4 flex flex-col max-h-full border border-pink-100">
               <div class="flex justify-between items-center mb-4">
-                <h3 class="font-semibold text-slate-700 dark:text-slate-200 uppercase tracking-wider text-sm">{{ column.name }}</h3>
-                <span class="bg-slate-300 dark:bg-slate-700 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded text-xs">{{ column.tasks?.length || 0 }}</span>
+                <h3 class="font-semibold text-pink-800 uppercase tracking-wider text-sm">{{ column.name }}</h3>
+                <span class="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">{{ column.tasks?.length || 0 }}</span>
               </div>
               
               <div 
@@ -60,7 +60,7 @@ import {
                   <div 
                     cdkDrag
                     (click)="openTaskModal(task)"
-                    class="p-4 bg-white dark:bg-slate-700 rounded-lg shadow-sm border border-slate-100 dark:border-slate-600 cursor-grab active:cursor-grabbing hover:border-blue-400 dark:hover:border-blue-500 transition-colors group"
+                    class="p-4 bg-white rounded-lg shadow-sm border border-pink-50 cursor-grab active:cursor-grabbing hover:border-pink-300 transition-colors group"
                   >
                     <div class="flex justify-between items-start mb-2">
                       <span 
@@ -69,9 +69,9 @@ import {
                         [class.text-red-700]="task.priority === 'urgent'"
                         [class.bg-orange-100]="task.priority === 'high'"
                         [class.text-orange-700]="task.priority === 'high'"
-                        [class.bg-blue-100]="task.priority === 'medium'"
+                        [class.bg-blue-50]="task.priority === 'medium'"
                         [class.text-blue-700]="task.priority === 'medium'"
-                        [class.bg-green-100]="task.priority === 'low'"
+                        [class.bg-green-50]="task.priority === 'low'"
                         [class.text-green-700]="task.priority === 'low'"
                         [class.bg-slate-100]="!task.priority"
                         [class.text-slate-700]="!task.priority"
@@ -84,13 +84,13 @@ import {
                     
                     <div class="flex justify-between items-center">
                       <div class="flex -space-x-2">
-                        <div class="h-6 w-6 rounded-full bg-indigo-500 flex items-center justify-center text-[10px] text-white ring-2 ring-white dark:ring-slate-700">
+                        <div class="h-6 w-6 rounded-full bg-pink-400 flex items-center justify-center text-[10px] text-white ring-2 ring-white">
                           {{ task.assigneeId ? 'U' : '?' }}
                         </div>
                       </div>
                       
                       @if (task.dueDate) {
-                        <div class="flex items-center text-xs text-slate-500 dark:text-slate-400">
+                        <div class="flex items-center text-xs text-pink-400">
                           <span>{{ task.dueDate | date:'MMM d' }}</span>
                         </div>
                       }
@@ -99,20 +99,20 @@ import {
                 }
 
                 @if (addingToColumn() === column.id) {
-                  <div class="p-3 bg-white dark:bg-slate-700 rounded-lg border-2 border-blue-400 shadow-sm anim-fade-in mb-3">
+                  <div class="p-3 bg-white rounded-lg border-2 border-pink-200 shadow-sm anim-fade-in mb-3">
                     <input 
                       #newTaskInput
                       type="text" 
                       [(ngModel)]="newTaskTitle"
-                      placeholder="Enter task title..."
+                      placeholder="Título de la tarea..."
                       (keyup.enter)="addTask(column.id)"
                       (keyup.escape)="cancelAddTask()"
-                      class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded px-2 py-1 text-sm mb-2 focus:ring-1 focus:ring-blue-500"
+                      class="w-full bg-pink-50 border-none rounded px-2 py-1 text-sm mb-2 focus:ring-1 focus:ring-pink-500"
                       autofocus
                     />
                     <div class="flex gap-2">
-                      <button (click)="addTask(column.id)" class="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">Add</button>
-                      <button (click)="cancelAddTask()" class="text-xs bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 px-2 py-1 rounded hover:bg-slate-300">Cancel</button>
+                      <button (click)="addTask(column.id)" class="text-xs bg-pink-500 text-white px-2 py-1 rounded hover:bg-pink-600">Añadir</button>
+                      <button (click)="cancelAddTask()" class="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded hover:bg-pink-200">Cancelar</button>
                     </div>
                   </div>
                 }
@@ -130,27 +130,27 @@ import {
           }
 
           @if (isAddingColumn()) {
-            <div class="shrink-0 w-80 h-fit bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-dashed border-blue-400 dark:border-blue-500 shadow-xl anim-fade-in">
+            <div class="shrink-0 w-80 h-fit bg-white rounded-xl p-4 border-2 border-dashed border-pink-200 shadow-xl anim-fade-in">
               <input 
                 #newColumnInput
                 type="text" 
                 [(ngModel)]="newColumnName"
-                placeholder="Column name..."
+                placeholder="Nombre de la columna..."
                 (keyup.enter)="addColumn()"
-                class="w-full bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-3 py-2 text-slate-800 dark:text-white focus:ring-2 focus:ring-blue-500 mb-3"
+                class="w-full bg-pink-50 border-none rounded-lg px-3 py-2 text-pink-900 focus:ring-2 focus:ring-pink-500 mb-3"
               />
               <div class="flex gap-2">
                 <button 
                   (click)="addColumn()"
-                  class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-1.5 rounded-lg text-sm font-medium transition-colors"
+                  class="flex-1 bg-pink-500 hover:bg-pink-600 text-white py-1.5 rounded-lg text-sm font-medium transition-colors"
                 >
-                  Save
+                  Guardar
                 </button>
                 <button 
                   (click)="toggleAddColumn()"
-                  class="flex-1 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 py-1.5 rounded-lg text-sm font-medium transition-colors"
+                  class="flex-1 bg-pink-100 text-pink-700 py-1.5 rounded-lg text-sm font-medium transition-colors"
                 >
-                  Cancel
+                  Cancelar
                 </button>
               </div>
             </div>
@@ -158,8 +158,8 @@ import {
         </div>
       } @else {
         <div class="flex flex-col items-center justify-center flex-1">
-          <p class="text-slate-500 dark:text-slate-400 mb-4 text-xl">Board not found</p>
-          <a href="/" class="text-blue-500 hover:underline">Go back home</a>
+          <p class="text-pink-400 mb-4 text-xl">Tablero no encontrado</p>
+          <a href="/" class="text-pink-500 hover:underline">Volver al inicio</a>
         </div>
       }
     </div>

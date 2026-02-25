@@ -51,19 +51,20 @@ import { Task } from '../../models/task.model';
       display: flex;
       align-items: center;
       padding: 1rem;
-      background: rgba(255, 255, 255, 0.05);
+      background: white;
       border-radius: 12px;
       margin-bottom: 0.75rem;
       transition: all 0.2s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      border: 1px solid #fce4ec;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
       cursor: pointer;
     }
 
     .task-item:hover {
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(66, 153, 225, 0.4);
+      background: #fffafa;
+      border-color: #f48fb1;
+      box-shadow: 0 6px 12px rgba(236, 64, 122, 0.08);
     }
 
     .task-item.completed {
@@ -72,13 +73,14 @@ import { Task } from '../../models/task.model';
 
     .task-item.completed .task-title {
       text-decoration: line-through;
-      color: #94a3b8;
+      color: #f48fb1;
     }
 
     .task-title {
       font-size: 1rem;
-      color: #f8fafc;
+      color: #880e4f;
       transition: color 0.2s ease;
+      font-weight: 500;
     }
 
     .checkbox-container {
@@ -104,18 +106,18 @@ import { Task } from '../../models/task.model';
       height: 24px;
       width: 24px;
       background-color: transparent;
-      border: 2px solid #64748b;
+      border: 2px solid #f8bbd0;
       border-radius: 6px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .checkbox-container:hover input ~ .checkmark {
-      border-color: #4299e1;
+      border-color: #ec407a;
     }
 
     .checkbox-container input:checked ~ .checkmark {
-      background-color: #4299e1;
-      border-color: #4299e1;
+      background-color: #ec407a;
+      border-color: #ec407a;
     }
 
     .checkmark:after {
@@ -138,7 +140,7 @@ import { Task } from '../../models/task.model';
     .delete-btn {
       background: none;
       border: none;
-      color: #64748b;
+      color: #f8bbd0;
       cursor: pointer;
       padding: 8px;
       border-radius: 8px;
@@ -149,8 +151,8 @@ import { Task } from '../../models/task.model';
     }
 
     .delete-btn:hover {
-      color: #f87171;
-      background: rgba(248, 113, 113, 0.1);
+      color: #ec407a;
+      background: #fff5f7;
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -63,7 +63,7 @@ import { Task } from '../../models/task.model';
       margin: 0;
       font-size: 1.5rem;
       font-weight: 700;
-      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      background: linear-gradient(135deg, #ec407a 0%, #f48fb1 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -72,15 +72,16 @@ import { Task } from '../../models/task.model';
     .filters {
       display: flex;
       gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.05);
+      background: #fdf2f8;
       padding: 0.25rem;
       border-radius: 10px;
+      border: 1px solid #fce4ec;
     }
 
     .filters button {
       background: none;
       border: none;
-      color: #94a3b8;
+      color: #f06292;
       padding: 0.5rem 1rem;
       border-radius: 8px;
       cursor: pointer;
@@ -90,13 +91,14 @@ import { Task } from '../../models/task.model';
     }
 
     .filters button:hover {
-      color: #f8fafc;
+      color: #ec407a;
+      background: #fce4ec;
     }
 
     .filters button.active {
-      background: rgba(255, 255, 255, 0.1);
+      background: #ec407a;
       color: #fff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(236, 64, 122, 0.2);
     }
 
     .tasks-container {
@@ -107,9 +109,9 @@ import { Task } from '../../models/task.model';
     .empty-state {
       text-align: center;
       padding: 3rem 1rem;
-      background: rgba(255, 255, 255, 0.02);
+      background: #fff5f7;
       border-radius: 20px;
-      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border: 1px dashed #f8bbd0;
     }
 
     .empty-state .icon {
@@ -118,15 +120,15 @@ import { Task } from '../../models/task.model';
     }
 
     .empty-state p {
-      color: #64748b;
+      color: #f06292;
       margin: 0;
     }
 
     .list-footer {
       margin-top: 2rem;
       padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #64748b;
+      border-top: 1px solid #fce4ec;
+      color: #f48fb1;
       font-size: 0.875rem;
       display: flex;
       justify-content: space-between;
@@ -144,9 +146,9 @@ import { Task } from '../../models/task.model';
     .loader {
       width: 40px;
       height: 40px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
+      border: 3px solid #fce4ec;
       border-radius: 50%;
-      border-top-color: #3b82f6;
+      border-top-color: #ec407a;
       animation: spin 1s linear infinite;
     }
 
